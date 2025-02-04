@@ -60,3 +60,30 @@ button:hover {
 .bubble:hover {
     fill-opacity: 0.9;
 }
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 8px;
+    font-size: 12px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    pointer-events: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.x-label, .y-label {
+    font-size: 12px;
+    fill: #666;
+}
+
+#visualization {
+    width: 100%;
+    overflow: hidden;
+}
+
+svg {
+    display: block;
+    margin: 0 auto;
+}
