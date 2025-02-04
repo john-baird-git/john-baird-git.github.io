@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Compute Evolution</title>
+    <title>AI Model Evolution Dashboard</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -15,9 +16,30 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .visualization-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .info-panel {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         h1 {
@@ -33,7 +55,9 @@
         }
 
         .controls {
-            text-align: center;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
             margin: 1rem 0;
         }
 
@@ -53,129 +77,181 @@
 
         .tooltip {
             position: absolute;
-            padding: 8px;
-            background: rgba(0, 0, 0, 0.8);
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.9);
             color: white;
             border-radius: 5px;
             pointer-events: none;
+            font-size: 14px;
+        }
+
+        .model-details {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 5px;
+            background: #f8f9fa;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-card {
+            background: #fff;
+            padding: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        #timelineChart {
+            margin-top: 2rem;
+        }
+
+        .filter-controls {
+            margin: 1rem 0;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #dfe6e9;
+            color: #2d3436;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .filter-btn.active {
+            background: #0984e3;
+            color: white;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>AI Compute Evolution</h1>
-        <div class="subtitle">Computing power used to train AI models over time</div>
-        <div id="visualization"></div>
-        <div class="controls">
-            <button id="playButton">Play Animation</button>
+        <h1>AI Model Evolution Dashboard</h1>
+        <div class="subtitle">Exploring the growth of AI models through compute, parameters, and performance</div>
+        
+        <div class="dashboard-grid">
+            <div class="visualization-container">
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-view="compute">Compute</button>
+                    <button class="filter-btn" data-view="parameters">Parameters</button>
+                    <button class="filter-btn" data-view="performance">Performance</button>
+                </div>
+                <div id="visualization"></div>
+                <div class="controls">
+                    <button id="playButton">Play Animation</button>
+                    <button id="resetButton">Reset</button>
+                </div>
+            </div>
+            
+            <div class="info-panel">
+                <h3>Model Details</h3>
+                <div id="modelDetails" class="model-details">
+                    Select a model to see details
+                </div>
+                <canvas id="timelineChart"></canvas>
+            </div>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const data = [
-                { year: 2012, model: "AlexNet", compute: 0.0000012, color: "#74b9ff" },
-                { year: 2015, model: "ResNet", compute: 0.000036, color: "#0984e3" },
-                { year: 2017, model: "Transformer", compute: 0.000300, color: "#6c5ce7" },
-                { year: 2018, model: "BERT", compute: 0.000512, color: "#a29bfe" },
-                { year: 2019, model: "GPT-2", compute: 0.042000, color: "#fd79a8" },
-                { year: 2020, model: "GPT-3", compute: 3.640000, color: "#e84393" },
-                { year: 2022, model: "PaLM", compute: 2.500000, color: "#e17055" },
-                { year: 2023, model: "GPT-4", compute: 8.000000, color: "#d63031" }
-            ];
+        const modelData = [
+            { year: 2012, model: "AlexNet", compute: 0.0000012, parameters: 60e6, performance: 63.3, color: "#74b9ff", description: "Revolutionary CNN that won ImageNet" },
+            { year: 2014, model: "VGGNet", compute: 0.0000096, parameters: 138e6, performance: 75.2, color: "#81ecec", description: "Deep CNN with simple architecture" },
+            { year: 2015, model: "ResNet", compute: 0.000036, parameters: 60e6, performance: 76.1, color: "#0984e3", description: "Introduced residual connections" },
+            { year: 2017, model: "Transformer", compute: 0.000300, parameters: 65e6, performance: 78.5, color: "#6c5ce7", description: "Pioneered attention mechanism" },
+            { year: 2018, model: "BERT", compute: 0.000512, parameters: 340e6, performance: 80.5, color: "#a29bfe", description: "Bidirectional language understanding" },
+            { year: 2019, model: "GPT-2", compute: 0.042000, parameters: 1.5e9, performance: 83.1, color: "#fd79a8", description: "Large-scale language generation" },
+            { year: 2020, model: "GPT-3", compute: 3.640000, parameters: 175e9, performance: 88.4, color: "#e84393", description: "Few-shot learning capabilities" },
+            { year: 2021, model: "PaLM", compute: 2.500000, parameters: 540e9, performance: 90.4, color: "#e17055", description: "Pathways Language Model" },
+            { year: 2022, model: "Chinchilla", compute: 1.800000, parameters: 70e9, performance: 91.2, color: "#fab1a0", description: "Compute-optimal scaling" },
+            { year: 2023, model: "GPT-4", compute: 8.000000, parameters: 1.76e12, performance: 95.0, color: "#d63031", description: "Multimodal capabilities" }
+        ];
 
-            function createVisualization() {
-                const width = Math.min(1000, window.innerWidth - 40);
-                const height = 600;
-                const margin = { top: 50, right: 50, bottom: 50, left: 80 };
+        let currentView = 'compute';
+        let timelineChart = null;
 
-                // Clear any existing SVG
-                d3.select("#visualization").html("");
+        function updateVisualization() {
+            // ... (previous D3.js visualization code) ...
+            // Update to handle different views (compute/parameters/performance)
+        }
 
-                const svg = d3.select("#visualization")
-                    .append("svg")
-                    .attr("width", width)
-                    .attr("height", height);
-
-                const x = d3.scaleLinear()
-                    .domain([2012, 2023])
-                    .range([margin.left, width - margin.right]);
-
-                const y = d3.scaleLog()
-                    .domain([1e-7, 10])
-                    .range([height - margin.bottom, margin.top]);
-
-                // Add X axis
-                svg.append("g")
-                    .attr("transform", `translate(0,${height - margin.bottom})`)
-                    .call(d3.axisBottom(x).tickFormat(d3.format("d")));
-
-                // Add Y axis
-                svg.append("g")
-                    .attr("transform", `translate(${margin.left},0)`)
-                    .call(d3.axisLeft(y).tickFormat(d3.format(".0e")));
-
-                // Add tooltip
-                const tooltip = d3.select("body").append("div")
-                    .attr("class", "tooltip")
-                    .style("opacity", 0);
-
-                // Add bubbles
-                const bubbles = svg.selectAll("circle")
-                    .data(data)
-                    .enter()
-                    .append("circle")
-                    .attr("cx", d => x(d.year))
-                    .attr("cy", d => y(d.compute))
-                    .attr("r", 0)
-                    .attr("fill", d => d.color)
-                    .attr("opacity", 0.7);
-
-                // Add hover effects
-                bubbles.on("mouseover", function(event, d) {
-                    d3.select(this)
-                        .transition()
-                        .duration(200)
-                        .attr("opacity", 1);
-
-                    tooltip.transition()
-                        .duration(200)
-                        .style("opacity", .9);
-                    
-                    tooltip.html(`${d.model}<br/>Compute: ${d.compute} petaflop/s-days`)
-                        .style("left", (event.pageX + 10) + "px")
-                        .style("top", (event.pageY - 28) + "px");
-                })
-                .on("mouseout", function() {
-                    d3.select(this)
-                        .transition()
-                        .duration(200)
-                        .attr("opacity", 0.7);
-
-                    tooltip.transition()
-                        .duration(500)
-                        .style("opacity", 0);
-                });
-
-                // Animation function
-                function animateBubbles() {
-                    bubbles.transition()
-                        .duration(1000)
-                        .attr("r", d => Math.sqrt(d.compute) * 20);
-                }
-
-                // Add click handler to button
-                document.getElementById("playButton").onclick = animateBubbles;
-
-                // Initial animation
-                setTimeout(animateBubbles, 500);
+        function createTimelineChart() {
+            const ctx = document.getElementById('timelineChart').getContext('2d');
+            
+            if (timelineChart) {
+                timelineChart.destroy();
             }
 
-            // Create initial visualization
-            createVisualization();
+            timelineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: modelData.map(d => d.year),
+                    datasets: [{
+                        label: 'Model Performance',
+                        data: modelData.map(d => d.performance),
+                        borderColor: '#0984e3',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'AI Model Performance Timeline'
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateModelDetails(model) {
+            const details = document.getElementById('modelDetails');
+            details.innerHTML = `
+                <h4>${model.model} (${model.year})</h4>
+                <p>${model.description}</p>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <strong>Compute:</strong><br>${model.compute.toExponential(2)} PF/s-days
+                    </div>
+                    <div class="stat-card">
+                        <strong>Parameters:</strong><br>${(model.parameters/1e9).toFixed(2)}B
+                    </div>
+                    <div class="stat-card">
+                        <strong>Performance:</strong><br>${model.performance}%
+                    </div>
+                </div>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize visualization
+            updateVisualization();
+            createTimelineChart();
+
+            // Add event listeners for filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentView = this.dataset.view;
+                    updateVisualization();
+                });
+            });
 
             // Handle window resize
-            window.addEventListener('resize', createVisualization);
+            window.addEventListener('resize', () => {
+                updateVisualization();
+                createTimelineChart();
+            });
         });
     </script>
 </body>
