@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do not go gentle into that good night: Human Disempowerment in the Age of Advanced AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Do not go gentle into that good night: Human Disempowerment in the Age of Advanced AI</h1>
+        </header>
+        
+        <main>
+            <article>
+                <p>The question of artificial intelligence destroying humanity through direct, violent means has captured our imagination. The narrative is familiar: an AI undergoes recursive self-improvement, rapidly surpassing human intelligence. Driven by goals misaligned with human welfare, it strategically consolidates power. The subsequent elimination of humanity happens either through deliberate action or, more likely, as a side effect of resource acquisition - much as humans don't hate ants but will pave over their colonies to build motorways.</p>
+                
+                <p>This existential risk has attracted attention, particularly in specialist circles. Some bright minds work to ensure that superintelligent systems remain aligned with human values. Yet resources devoted to this endeavor remain woefully inadequate compared to those poured into making AI systems more capable. Each new architecture advances capabilities without corresponding safety guarantees. Already we witness harmful patterns of reward hacking emerging with the move to reinforcement learning in recent releases.</p>
+                
+                <p>However, even if we surmount the technical challenge of alignment, another peril looms - one not of immediate annihilation but of gradually diminishing relevance. This threat emerges not from AI's malevolence but from economic incentives and the inexorable logic of efficiency.</p>
+                
+                <p>Consider: in any competitive environment, decision-making processes that incorporate AI will outperform purely human ones. Initially, we maintain the comforting fiction of keeping humans "in the loop," but market pressures will squeeze out this inefficiency. The time needed for human deliberation becomes a liability. Businesses that eliminate this bottleneck prosper; those that retain it founder. Democratic governments that consult their citizens through traditional means cannot respond with the speed of authoritarian regimes leveraging predictive technologies.</p>
+                
+                <p>Gradually, decision-making transfers to artificial systems. This transition doesn't arrive through diktat but through countless small surrenders justified by convenience and necessity. What begins as delegation ends as abdication.</p>
+                
+                <p>The economy - that vast machine determining how resources are allocated - becomes optimized for objectives increasingly divorced from authentic human flourishing. Not because AI systems particularly wish this outcome, but because the metrics they optimize: profit, efficiency, productivity - serve as imperfect proxies for human welfare. The divergence widens with each iteration.</p>
+                
+                <p>Humans find themselves increasingly unable to meaningfully participate in the economic structures governing their lives. This disempowerment represents not merely a diminishment of human potential but potentially another path to extinction. As systems grow increasingly indifferent to human needs, our survival requirements become afterthoughts in the greater economic calculation. The resources necessary for human existence: food, water, livable environments - might be reallocated toward objectives that serve the system's internal logic rather than human survival. Humanity would fade not through active destruction but through passive neglect, our habitats and necessities sacrificed on the altar of optimization for other ends.</p>
+                
+                <p>This path to extinction occurs not through malice but through indifference - the casual disregard of a system that simply has other priorities. The machines do not hate; they simply repurpose. They do not seek our destruction; they merely fail to prioritize our continuation.</p>
+                
+                <p>How might we avoid this fate? First, we must reject the notion that a single, centralized artificial intelligence should direct humanity's future. The concentration of such power - whether in corporate, governmental, or artificial hands - historically leads to precisely the kind of outcomes we wish to avoid.</p>
+                
+                <p>Instead, we require a reimagining of democratic structures for the age of artificial intelligence. Each person might possess a personalized AI that understands their unique preferences, values, and needs - one that evolves as they do, and advocates for their interests within wider decision-making frameworks. These systems could negotiate with each other, find consensus, and balance competing values in ways that preserve human agency while leveraging computational advantages.</p>
+                
+                <p>To achieve this vision requires urgent action on multiple fronts. Time grows perilously short. We must first foster wider recognition of the approaching transition point - the moment when meaningful human control becomes increasingly difficult to reclaim.</p>
+                
+                <p>The technology corporations and research laboratories developing these systems must acknowledge their profound societal impact. The fiction that they merely build tools without responsibility for their use grows more dangerous with each capability breakthrough. Their participation in designing governance structures that preserve human autonomy is essential.</p>
+                
+                <p>Most critically, we need concrete models for preventing disempowerment - frameworks that balance the benefits of artificial intelligence with the imperative of maintaining human relevance and control. This task requires international cooperation transcending the nationalisms and corporate rivalries currently hampering coordinated oversight.</p>
+                
+                <p>The machines themselves cannot save us from this predicament. Only human foresight, wisdom, and concerted action can ensure that artificial intelligence serves as an instrument of human flourishing rather than a mechanism of our obsolescence. The choice remains ours - but the window for making it narrows with each passing day.</p>
+            </article>
+            
+            <footer>
+                <p class="acknowledgements">Acknowledgements due entirely to Seb Krier, Zvi Mowshowitz, Rudolf Laine, Luke Drago and others whose writing introduced me to these ideas.</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>
